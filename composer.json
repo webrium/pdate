@@ -1,5 +1,5 @@
 {
-  "name": "webrium/persian-date",
+  "name": "webrium/pdate",
   "description": "Webrium persian date",
   "type": "library",
   "license": "Apache-2.0",
