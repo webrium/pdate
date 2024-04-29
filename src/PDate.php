@@ -112,6 +112,11 @@ class PDate extends Shamsi
     return $this->jdate('H:i:s', $this->_timestamp);
   }
 
+  public function monthName(): string
+  {
+    return $this->jdate('F', $this->_timestamp);
+  }
+
   public function fromGregorian(array|string $gregorian_date, $separator = '-')
   {
     if(is_string($gregorian_date)){
