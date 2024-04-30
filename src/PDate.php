@@ -10,11 +10,9 @@ class PDate extends Shamsi
   private $_timestamp = 0;
   private string $_format = 'Y-m-d H:i:s';
 
-  // private bool $init_timestamp = false;
-
   private const day_sec = 86400;
   private const week_sec = 604800;
-  // private const month_sec = 86400*;
+
 
   public static function new()
   {
@@ -157,14 +155,21 @@ class PDate extends Shamsi
 
   public function get()
   {
+    $this->initTimestamp();
     return $this->jdate($this->_format, $this->_timestamp);
   }
 
   public function getGregorian()
   {
+    $this->initTimestamp();
     return date($this->_format, $this->_timestamp);
   }
 
 
+  private function initTimestamp(){
+    if($this->_timestamp === 0){
+      $this->_timestamp = time();
+    }
+  }
 
 }
