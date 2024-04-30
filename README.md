@@ -16,7 +16,7 @@ composer require webrium/pdate
 use PDate\PDate;
 
 
-PDate::new()->now()->get();
+PDate::new()->get();
 // 1403-02-10 21-10-25
 
 PDate::new()
@@ -63,7 +63,39 @@ PDate::new()
   // 1403-02-15
 ```
 
+
+### Methods
+
+```PHP
+$pdate = PDate::new();
+
+$pdate->day(); // 27
+
+$pdate->month(); // 11
+
+$pdate->year(); // 1403
+
+$pdate->clock(); // 20:46:32
+
+$pdate->hour(); // 23
+
+$date->minutes(); // 59
+
+$pdate->second(); // 45
+
+// Persian month name
+$pdate->monthName(); //خرداد
+
+//The number of days in the month
+$pdate->monthDays(); // 31 
+```
 <br>
+
+You also have access to the `jdate` method. jdate is the same as `date` but for Hijri date
+
+```PHP
+PDate::new()->jdate();
+```
 
 
 
