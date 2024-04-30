@@ -79,7 +79,7 @@ $pdate->clock(); // 20:46:32
 
 $pdate->hour(); // 23
 
-$date->minutes(); // 59
+$pdate->minutes(); // 59
 
 $pdate->second(); // 45
 
