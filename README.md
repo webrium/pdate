@@ -91,10 +91,7 @@ $pdate->monthDays(); // 31
 ```
 <br>
 
-You also have access to the `jdate` method. jdate is the same as `date` but for Hijri date
 
-```PHP
-PDate::new()->jdate();
 ```
 
 
