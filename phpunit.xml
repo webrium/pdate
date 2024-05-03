@@ -13,6 +13,7 @@
         <testsuite name="Your tests">
             <file>./tests/DateTest.php</file> 
             <file>./tests/ConvertTest.php</file> 
+            <file>./tests/ValidationTest.php</file> 
         </testsuite>
     </testsuites>
 </phpunit>

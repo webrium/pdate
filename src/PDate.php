@@ -14,6 +14,22 @@ class PDate extends Shamsi
   private const week_sec = 604800;
 
 
+  public static function check(int|string $day, int|string $month, int|string $year):bool{
+    return self::new()->jcheckdate($month, $day, $year);
+  }
+
+  public static function checkStr(string $date, string $separator='-'):bool{
+      $arr = explode($separator, $date);
+
+      if(count($arr)!=3){
+        // echo "sdfdsfdsfdsfs";
+        return false;
+      }
+
+    return self::check($arr[2], $arr[1], $arr[0]);
+  }
+
+
   public static function new()
   {
     return (new PDate);
