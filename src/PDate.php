@@ -10,6 +10,8 @@ class PDate extends Shamsi
   private $_timestamp = 0;
   private string $_format = 'Y-m-d H:i:s';
 
+  private array $_time = [0,0,0];
+
   private const day_sec = 86400;
   private const week_sec = 604800;
 
@@ -22,12 +24,12 @@ class PDate extends Shamsi
       $arr = explode($separator, $date);
 
       if(count($arr)!=3){
-        // echo "sdfdsfdsfdsfs";
         return false;
       }
 
     return self::check($arr[2], $arr[1], $arr[0]);
   }
+
 
 
   public static function new()
@@ -131,12 +133,41 @@ class PDate extends Shamsi
     return $this->jdate('F', $this->_timestamp);
   }
 
+
+
+  private function detectTimeFromString(&$str){
+
+    $ex_date_and_time = explode(' ' , $str);
+
+    if(in_array(count($ex_date_and_time),[2,3]) && strpos($ex_date_and_time[1], ':')>0){
+      $str = $ex_date_and_time[0];
+      $this->_time =explode(':',  $ex_date_and_time[1]);
+    }
+
+  }
+
+  private function detectTimeFromArray($array){
+    $ex_date_and_time = explode(' ' , $array[count($array)-1]);
+
+    if(in_array(count($ex_date_and_time),[2,3]) && strpos($ex_date_and_time[1], ':')>0){
+      $array[count($array)-1] = $ex_date_and_time[0];
+      $this->_time =explode(':',  $ex_date_and_time[1]);
+    }
+  }
+
+
   public function fromGregorian(array|string $gregorian_date, $separator = '-')
   {
     if(is_string($gregorian_date)){
+
+      $this->detectTimeFromString($gregorian_date);
+
       $array = explode($separator, $gregorian_date);
     }
     else{
+
+      $this->detectTimeFromArray($gregorian_date);
+
       $array = $gregorian_date;
     }
 
@@ -145,16 +176,22 @@ class PDate extends Shamsi
     }
 
     $result = $this->gregorian_to_jalali(intval($array[0]), intval($array[1]), intval($array[2]));
-    $this->_timestamp = $this->jmktime(0, 0, 0, $result[1], $result[2], $result[0]);
+    $this->_timestamp = $this->jmktime($this->_time[0]??0,$this->_time[1]??0, $this->_time[2]??0, $result[1], $result[2], $result[0]);
     return $this;
   }
 
   public function fromShamsi(array|string $shamsi_date, $separator = '-')
   {
     if(is_string($shamsi_date)){
+
+      $this->detectTimeFromString($shamsi_date);
+
       $array = explode($separator, $shamsi_date);
     }
     else{
+
+      $this->detectTimeFromArray($shamsi_date);
+
       $array = $shamsi_date;
     }
 
@@ -163,7 +200,7 @@ class PDate extends Shamsi
     }
 
     $result = $this->jalali_to_gregorian(intval($array[0]), intval($array[1]), intval($array[2]));
-    $this->_timestamp = mktime(0, 0, 0, $result[1], $result[2], $result[0]);
+    $this->_timestamp = mktime($this->_time[0]??0,$this->_time[1]??0, $this->_time[2]??0, $result[1], $result[2], $result[0]);
     return $this;
   }
   
